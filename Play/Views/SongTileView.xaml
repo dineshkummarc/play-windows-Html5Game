@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="Play.Views.SongTileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:Play"
+             mc:Ignorable="d" x:Name="theView"
+             d:DesignHeight="100" d:DesignWidth="600">
+
+    <Border BorderThickness="0,0,0,1" BorderBrush="LightGray">
+        <Grid DataContext="{Binding ViewModel, ElementName=theView}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Height="64" Margin="8" VerticalAlignment="Center" Width="64" BorderBrush="Black" BorderThickness="2" CornerRadius="2">
+                <Image Source="{Binding AlbumArt}" /> 
+            </Border>
+
+            <StackPanel Orientation="Vertical" Margin="0,8,8,0" VerticalAlignment="Top" Grid.Column="1">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Setters>
+                            <Setter Property="FontFamily" Value="/Play;component/Fonts/#Open Sans Light" />
+                            <Setter Property="TextWrapping" Value="NoWrap" />
+                            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                        </Style.Setters>
+                    </Style>
+                </StackPanel.Resources>
+
+                <TextBlock FontWeight="Bold" Text="{Binding Model.name}"  FontFamily="/Play;component/Fonts/#Open Sans Semibold" FontSize="17" />
+                <TextBlock Text="{Binding Model.artist}" FontSize="13" />
+                <TextBlock Text="{Binding Model.album}" FontSize="13" Foreground="{DynamicResource ButtonNormalForeground}"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8" HorizontalAlignment="Right">
+                    <local:FadeImageButton Command="{Binding QueueSong}" Visibility="{Binding QueueSongVisibility}">
+                        <local:FadeImageButton.Content>
+                            <TextBlock Text="queue this song" Foreground="{DynamicResource ButtonNormalForeground}" />
+                        </local:FadeImageButton.Content>
+                        <local:FadeImageButton.HighlightContent>
+                            <TextBlock Text="queue this song" Foreground="{DynamicResource HighlightGradientBrush}" />
+                        </local:FadeImageButton.HighlightContent>
+                    </local:FadeImageButton>
+
+                    <local:FadeImageButton Command="{Binding QueueAlbum}" Margin="8,0,0,0">
+                        <local:FadeImageButton.Content>
+                            <TextBlock Text="queue this album" Foreground="{DynamicResource ButtonNormalForeground}" />
+                        </local:FadeImageButton.Content>
+                        <local:FadeImageButton.HighlightContent>
+                            <TextBlock Text="queue this album" Foreground="{DynamicResource HighlightGradientBrush}" />
+                        </local:FadeImageButton.HighlightContent>
+                    </local:FadeImageButton>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="8" Grid.Column="3">
+                <local:FadeImageToggleButton Margin="4" IsChecked="{Binding Path=IsStarred, Mode=OneWay}" Command="{Binding ToggleStarred}">
+                    <local:FadeImageToggleButton.Content>
+                        <Canvas Background="#01888888" Width="16" Height="15">
+                            <Viewbox>
+                                <Path Fill="{DynamicResource ButtonNormalForeground}"
+                                      Data=" M 8.000,0.000 L 9.931,5.484 L 16.000,5.730 L 11.530,9.420 L 12.940,15.000 L 8.000,11.951 L 3.050,15.000 L 4.460,9.420 L 0.000,5.730 L 5.822,5.516 L 8.000,0.000 Z"/>
+                            </Viewbox>
+                        </Canvas>
+                    </local:FadeImageToggleButton.Content>
+                    <local:FadeImageToggleButton.HighlightContent>
+                        <Canvas Background="#01888888" Width="16" Height="15">
+                            <Viewbox>
+                                <Path Fill="{DynamicResource HighlightGradientBrush}"
+                                      Data=" M 8.000,0.000 L 9.931,5.484 L 16.000,5.730 L 11.530,9.420 L 12.940,15.000 L 8.000,11.951 L 3.050,15.000 L 4.460,9.420 L 0.000,5.730 L 5.822,5.516 L 8.000,0.000 Z"/>
+                            </Viewbox>
+                        </Canvas>
+                    </local:FadeImageToggleButton.HighlightContent>
+                </local:FadeImageToggleButton>
+
+                <local:FadeImageButton Margin="4">
+                    <local:FadeImageButton.Content>
+                        <Viewbox Width="16" Height="16">
+                            <Canvas Width="72.000" Height="72.000" Background="#01888888">
+                                <!-- Icons/<Group>/<Compound Path> -->
+                                <Path Fill="{DynamicResource ButtonNormalForeground}"
+                                      Data="F1 M 35.996,47.771 C 29.484,47.771 24.205,42.490 24.205,35.979 C 24.205,29.466 29.484,24.188 35.996,24.188 C 42.509,24.188 47.788,29.466 47.788,35.979 C 47.788,42.490 42.509,47.771 35.996,47.771 Z M 36.000,0.000 C 16.117,0.000 0.000,16.117 0.000,36.000 C 0.000,55.883 16.117,72.000 36.000,72.000 C 55.881,72.000 72.000,55.883 72.000,36.000 C 72.000,16.117 55.881,0.000 36.000,0.000 Z"/>
+                            </Canvas>
+                        </Viewbox>
+                    </local:FadeImageButton.Content>
+                    <local:FadeImageButton.HighlightContent>
+                        <Viewbox Width="16" Height="16">
+                            <Canvas Width="72.000" Height="72.000" Background="#01888888">
+                                <!-- Icons/<Group>/<Compound Path> -->
+                                <Path Fill="{DynamicResource HighlightGradientBrush}"
+                                      Data="F1 M 35.996,47.771 C 29.484,47.771 24.205,42.490 24.205,35.979 C 24.205,29.466 29.484,24.188 35.996,24.188 C 42.509,24.188 47.788,29.466 47.788,35.979 C 47.788,42.490 42.509,47.771 35.996,47.771 Z M 36.000,0.000 C 16.117,0.000 0.000,16.117 0.000,36.000 C 0.000,55.883 16.117,72.000 36.000,72.000 C 55.881,72.000 72.000,55.883 72.000,36.000 C 72.000,16.117 55.881,0.000 36.000,0.000 Z"/>
+                            </Canvas>
+                        </Viewbox>
+                    </local:FadeImageButton.HighlightContent>
+                </local:FadeImageButton>
+
+                <local:FadeImageButton Margin="4">
+                    <local:FadeImageButton.Content>
+                        <Viewbox Width="16" Height="16">
+                            <Canvas Width="61.835" Height="72.018" Background="#01888888">
+                                <!-- Icons/<Group>/<Compound Path> -->
+                                <Path Fill="{DynamicResource ButtonNormalForeground}"
+                                      Data="F1 M 61.812,0.006 L 54.628,1.723 L 18.741,10.302 L 18.601,10.302 L 18.601,52.404 C 16.879,51.725 14.950,51.332 12.901,51.332 C 5.776,51.332 0.000,55.961 0.000,61.674 C 0.000,67.387 5.776,72.018 12.901,72.018 C 19.954,72.018 25.678,67.477 25.791,61.841 L 25.804,61.841 L 25.804,21.215 L 54.628,14.333 L 54.628,39.588 C 52.907,38.905 50.978,38.512 48.930,38.512 C 41.805,38.512 36.028,43.145 36.028,48.857 C 36.028,54.569 41.805,59.199 48.930,59.199 C 55.983,59.199 61.707,54.657 61.821,49.023 L 61.833,49.023 L 61.833,6.886 L 61.835,6.886 L 61.835,0.000 L 61.812,0.006 Z"/>
+                            </Canvas>
+                        </Viewbox>
+                    </local:FadeImageButton.Content>
+                    <local:FadeImageButton.HighlightContent>
+                        <Viewbox Width="16" Height="16">
+                            <Canvas Width="61.835" Height="72.018" Background="#01888888">
+                                <!-- Icons/<Group>/<Compound Path> -->
+                                <Path Fill="{DynamicResource HighlightGradientBrush}"
+                                      Data="F1 M 61.812,0.006 L 54.628,1.723 L 18.741,10.302 L 18.601,10.302 L 18.601,52.404 C 16.879,51.725 14.950,51.332 12.901,51.332 C 5.776,51.332 0.000,55.961 0.000,61.674 C 0.000,67.387 5.776,72.018 12.901,72.018 C 19.954,72.018 25.678,67.477 25.791,61.841 L 25.804,61.841 L 25.804,21.215 L 54.628,14.333 L 54.628,39.588 C 52.907,38.905 50.978,38.512 48.930,38.512 C 41.805,38.512 36.028,43.145 36.028,48.857 C 36.028,54.569 41.805,59.199 48.930,59.199 C 55.983,59.199 61.707,54.657 61.821,49.023 L 61.833,49.023 L 61.833,6.886 L 61.835,6.886 L 61.835,0.000 L 61.812,0.006 Z"/>
+                            </Canvas>
+                        </Viewbox>
+                    </local:FadeImageButton.HighlightContent>
+                </local:FadeImageButton>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>
